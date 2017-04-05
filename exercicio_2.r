@@ -96,7 +96,24 @@ boxplot(gas1, gas2, gas3, gas4,
         las = 1 ,names = c("< 1s.m", "1-2s.m", "2-4s.m", ">= 4 s.m"),
         col=c('red', 'blue', 'yellow', 'green'))
 
+# medidas resumo
+medias = c(mean(gas1), mean(gas2), mean(gas3), mean(gas4))
+medianas = c(median(gas1), median(gas2), median(gas4), median(gas4))
+minimos = c(min(gas1), min(gas2), min(gas3), min(gas4))
+maximos = c(max(gas1), max(gas2), max(gas3), max(gas4))
+q1 = c(quantile(gas1, .25), quantile(gas2, .25), quantile(gas3, .25), quantile(gas4, .25))
+q3 = c(quantile(gas1, .75), quantile(gas2, .75), quantile(gas3, .75), quantile(gas4, .75))
+dp = c(sd(gas1), sd(gas2), sd(gas3), sd(gas4))
+
+# criar tabela
+df3 = data.frame(medias, medianas, minimos, maximos, q1, q3, dp)
+# renomear linhas
+(setattr(df3, "row.names", c("< 1s.m", "1-2s.m", "2-4s.m", ">= 4 s.m")))
+# imprimir imagem de tabela com grades
+gridExtra::grid.table(df3)
+
 # i)
 qqnorm(renda_per_capita, 
        main = 'Gráfico Quantil-Quantil para Renda Per Capita',
        col = 'green')
+
